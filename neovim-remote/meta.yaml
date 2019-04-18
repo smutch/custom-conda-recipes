@@ -1,0 +1,48 @@
+{% set name = "neovim-remote" %}
+{% set version = "2.1.7" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 9d0599a891e6ddaf2d009431f269ddfaa8692e98d58865a4fdf25bc3119282eb
+
+build:
+  number: 0
+  entry_points:
+    - nvr = nvr.nvr:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - psutil
+    - pynvim
+    - python
+    - setuptools
+  run:
+    - psutil
+    - pynvim
+    - python
+    - setuptools
+
+test:
+  imports:
+    - nvr
+  commands:
+    - nvr --help
+
+about:
+  home: https://github.com/mhinz/neovim-remote
+  license: MIT
+  license_family: MIT
+  license_file: 
+  summary: Control nvim processes using "nvr" commandline tool
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here
