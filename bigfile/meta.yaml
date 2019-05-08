@@ -1,0 +1,43 @@
+{% set name = "bigfile" %}
+{% set version = "0.1.47" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 8a189de723a8482a4cf65f816453955796e67e8dd95a2c2e18edae2ce4c1f10d
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - cython
+    - numpy
+    - pip
+    - python
+  run:
+    - cython
+    - numpy
+    - python
+
+test:
+  imports:
+    - bigfile
+    - bigfile.tests
+
+about:
+  home: http://github.com/rainwoodman/bigfile
+  license: BSD-2-Clause
+  license_family: BSD
+  license_file: 
+  summary: python binding of BigFile, a peta scale IO format
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - smutch
